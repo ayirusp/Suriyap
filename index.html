@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <style>
+      .grid {
+        margin: 10%;
+        margin-top: 17%;
+      }
+      h1 {
+        margin-left: 40%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <h1>Age Calculator</h1>
+      <form>
+        <fieldset>
+          <legend>Age Calculator</legend>
+          <label for="dob">Enter Your DOB:</label>
+          <input type="date" name="dob" id="dob" /> <br />
+          <input type="submit" value="Get Age" id="ageSetter" />
+        </fieldset>
+      </form>
+      <p id="age">No Yet</p>
+    </div>
+  </body>
+  <script>
+    let emojis = [0x1F439, 0x1F435];
+    document
+      .getElementById("ageSetter")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+        getAge();
+      });
+    function getAge() {
+      let dob = document.getElementById("dob").value;
+      if(dob) {
+        dob = new Date(dob).getTime();
+        let currentDay = new Date()
+        let today = currentDay.getTime();
+        let dateDifference = Math.floor((today - dob) / (1000 * 60 * 60 * 24));
+        if(dateDifference >=0) {
+          let years = Math.floor(dateDifference / 365);
+          let months = Math.floor((dateDifference - (years * 365)) / 30);
+          let days = dateDifference - years * 365 - months * 12;
+          let hours = currentDay.getHours();
+          let minutes = currentDay.getMinutes();
+          let seconds = currentDay.getSeconds();
+          document.getElementById(
+            "age"
+          ).innerHTML = `Years: ${years} Months: ${months} Days: ${days}  Hours: ${hours} Minutes: ${minutes} Seconds: ${seconds}`;
+        } else {
+          alert(`Hey Buddy, I Can't for future ${String.fromCodePoint(0x1F439)}`)
+        }
+      } else {
+        alert(`Enter Valid Date Dude ${String.fromCodePoint(0x1F435)}`)
+      }
+    }
+  </script>
+</html>
